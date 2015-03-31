@@ -59,6 +59,5 @@
 	</dependencies>
   <modules>
   	<module>kiss-rest</module>
-  	<module>kiss-solr</module>
   </modules>
 </project>
