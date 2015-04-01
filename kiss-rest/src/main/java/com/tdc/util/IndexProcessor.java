@@ -27,6 +27,8 @@ public class IndexProcessor implements BeanFactoryPostProcessor {
 			fullTextEntityManager.createIndexer().startAndWait();
 		} catch (InterruptedException ie) {
 			ie.printStackTrace();
+		}finally{
+			fullTextEntityManager.close();
 		}
 
 	}

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.tdc.component.bean.CableUnitTreeBean;
 
 
-@Service("cableUnitService")
+@Service
 public class CableUnitServiceImpl implements CableUnitService {
 
 public CableUnitTreeBean getCuTreeBeanDetail(String name) {
