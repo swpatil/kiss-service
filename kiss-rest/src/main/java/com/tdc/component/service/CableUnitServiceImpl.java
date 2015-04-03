@@ -11,27 +11,28 @@ import com.tdc.persistence.dao.interfaces.CableUnitDAO;
 
 
 @Service
-public class CableUnitServiceImpl implements CableUnitService {
+public class CableUnitServiceImpl extends CommonServiceImpl implements CableUnitService {
 
 @Autowired	
 private CableUnitDAO cableUnitDAO;
 
 
+
+
 @Transactional
 public CableUnitTreeBean getCuTreeBeanDetail(String id) {
-		// TODO Auto-generated method stub
-		CableUnitTreeBean bean= new CableUnitTreeBean();
-		Cableunit cableunit=cableUnitDAO.find(id);
-		bean.setAnlAdmKode(cableunit.getAnlAdmKode());
-		bean.setAnlAnlaegsform(cableunit.getAnlAnlaegsform());
-		bean.setAnlAnlaegsnavn(cableunit.getAnlAnlaegsnavn());
-		bean.setAnlAnlaegsnr(cableunit.getAnlAnlaegsnr());
-		bean.setAnlEjerkode(cableunit.getAnlEjerkode());
-		bean.setAnlKommunenr(cableunit.getAnlKommunenr());
-		bean.setSignalforskilde(cableunit.getSignalforskilde());
 		
+		Cableunit cableunit=cableUnitDAO.find(id);
+		CableUnitTreeBean bean =dozerBeanMapper.map(cableunit, CableUnitTreeBean.class);
 		return bean;
 	}
 	
+@Transactional
+public CableUnitTreeBean findByCUNumber(String id) {
+
+		Cableunit cableunit=cableUnitDAO.findByCUNumber(id);
+		CableUnitTreeBean bean =dozerBeanMapper.map(cableunit, CableUnitTreeBean.class);
+		return bean;
+	}
 	
 }

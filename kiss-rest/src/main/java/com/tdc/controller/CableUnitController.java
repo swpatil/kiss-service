@@ -24,5 +24,10 @@ public class CableUnitController {
 		System.out.println(id);
 		return cableUnitService.getCuTreeBeanDetail(id);
 	}
-
+	@RequestMapping(value="/cu/{id}",method = RequestMethod.GET,  produces="application/json")
+	public CableUnitTreeBean findByCUNumber(@PathVariable String id) {
+		System.out.println(id);
+		return cableUnitService.findByCUNumber(id);
+	}
+	
 }

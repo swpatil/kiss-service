@@ -1,7 +1,11 @@
 package com.tdc.persistence.dao.implementation;
 
 import java.io.Serializable;
+
+import javax.persistence.Query;
+
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tdc.persistence.dao.interfaces.GenericDAO;
+
 
 public abstract class GenericDaoImpl<T, I extends Serializable> implements
 		GenericDAO<T, I> {
@@ -47,5 +52,6 @@ public abstract class GenericDaoImpl<T, I extends Serializable> implements
 	public void saveOrUpdate(T obj) {
 		getEntityManager().merge(obj);
 	}
+
 
 }

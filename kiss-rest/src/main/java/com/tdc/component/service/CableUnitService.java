@@ -9,4 +9,5 @@ import com.tdc.component.bean.CableUnitTreeBean;
 public interface CableUnitService {
 		
   public CableUnitTreeBean getCuTreeBeanDetail(String name);
+  public CableUnitTreeBean findByCUNumber(String name);
 }
