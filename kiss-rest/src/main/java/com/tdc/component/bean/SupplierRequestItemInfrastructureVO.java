@@ -1,6 +1,6 @@
 package com.tdc.component.bean;
 
-public class SupplierRequestItemInfrastructureBean {
+public class SupplierRequestItemInfrastructureVO {
 	
 	private String supplierRequestItemId;
 	private String supplierCode;

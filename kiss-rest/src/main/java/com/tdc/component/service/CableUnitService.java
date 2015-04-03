@@ -1,6 +1,6 @@
 package com.tdc.component.service;
 
-import com.tdc.component.bean.CableUnitTreeBean;
+import com.tdc.component.bean.CableUnitVO;
 
 
 
@@ -8,6 +8,6 @@ import com.tdc.component.bean.CableUnitTreeBean;
 
 public interface CableUnitService {
 		
-  public CableUnitTreeBean getCuTreeBeanDetail(String name);
-  public CableUnitTreeBean findByCUNumber(String name);
+  public CableUnitVO getCuTreeBeanDetail(String name);
+  public CableUnitVO findByCUNumber(String name);
 }

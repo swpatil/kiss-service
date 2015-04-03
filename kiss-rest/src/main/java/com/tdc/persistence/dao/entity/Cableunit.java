@@ -4,6 +4,8 @@ package com.tdc.persistence.dao.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -103,6 +106,8 @@ public class Cableunit implements java.io.Serializable {
 	private Character blandSelvChk;
 	private String currentCaseNumber;
 	private String latestCaseNumber;
+	private Set<Casefolder> caseFolder = new HashSet<Casefolder>(0);
+
 
 	public Cableunit() {
 	}
@@ -136,7 +141,7 @@ public class Cableunit implements java.io.Serializable {
 			Integer futureNodeId, Date moveDate, Short ophavsretAar,
 			Date flyttedato, String syncFlag, String lastModifiedBy,
 			Date lastModified, String salesforceId, Character blandSelvChk,
-			String currentCaseNumber, String latestCaseNumber) {
+			String currentCaseNumber, String latestCaseNumber,Set<Casefolder> caseFolder) {
 		this.id = id;
 		this.band = band;
 		this.cableunitstate = cableunitstate;
@@ -211,6 +216,7 @@ public class Cableunit implements java.io.Serializable {
 		this.blandSelvChk = blandSelvChk;
 		this.currentCaseNumber = currentCaseNumber;
 		this.latestCaseNumber = latestCaseNumber;
+		this.caseFolder=caseFolder;
 	}
 
 	@Id
@@ -900,5 +906,15 @@ public class Cableunit implements java.io.Serializable {
 	public void setLatestCaseNumber(String latestCaseNumber) {
 		this.latestCaseNumber = latestCaseNumber;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cableunit")
+	public Set<Casefolder> getCaseFolder() {
+		return caseFolder;
+	}
+
+	public void setCaseFolder(Set<Casefolder> caseFolder) {
+		this.caseFolder = caseFolder;
+	}
+
 
 }

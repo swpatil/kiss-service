@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.dozer.DozerBeanMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tdc.persistence.dao.interfaces.GenericDAO;
@@ -17,6 +19,8 @@ import com.tdc.persistence.dao.interfaces.GenericDAO;
 
 public abstract class GenericDaoImpl<T, I extends Serializable> implements
 		GenericDAO<T, I> {
+
+	
 	private Class<T> type;
 
 	protected EntityManager entityManager;

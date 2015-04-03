@@ -2,10 +2,10 @@ package com.tdc.component.bean;
 
 import java.util.List;
 
-public class ConstructionProjectInfrastructureBean {
+public class ConstructionProjectInfrastructureVO {
 	
 	private String constructionProjectId;
 	private String constructionProjectNumber;
-	private List<SupplierRequestItemInfrastructureBean> supplierRequestItemInfrastructures;
+	private List<SupplierRequestItemInfrastructureVO> supplierRequestItemInfrastructures;
 
 }

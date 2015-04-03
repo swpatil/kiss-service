@@ -1,10 +1,10 @@
 package com.tdc.component.bean;
 
-public class OfferInfrastructureBean {
+public class OfferInfrastructureVO {
 	
 	private String offerId;
 	private String offerSalesConceptCode;
-	private ConstructionProjectInfrastructureBean constructionProjectInfrastructure;
+	private ConstructionProjectInfrastructureVO constructionProjectInfrastructure;
 	private String constructionRequestId;
 
 }

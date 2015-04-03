@@ -2,11 +2,11 @@ package com.tdc.component.bean;
 
 import java.util.List;
 
-public class CableunitInfrastructureBean {
+public class CableunitInfrastructureVO {
 	
 	private String cableUnitNumber;
   	private String cableUnitName;  	
-  	private List<CaseInfrastructureBean> caseInfrastructures;
+  	private List<CaseInfrastructureVO> caseInfrastructures;
   	private String validCaseNumber;
   	
   	
@@ -22,11 +22,11 @@ public class CableunitInfrastructureBean {
 	public void setCableUnitName(String cableUnitName) {
 		this.cableUnitName = cableUnitName;
 	}
-	public List<CaseInfrastructureBean> getCaseInfrastructures() {
+	public List<CaseInfrastructureVO> getCaseInfrastructures() {
 		return caseInfrastructures;
 	}
 	public void setCaseInfrastructures(
-			List<CaseInfrastructureBean> caseInfrastructures) {
+			List<CaseInfrastructureVO> caseInfrastructures) {
 		this.caseInfrastructures = caseInfrastructures;
 	}
 	public String getValidCaseNumber() {
