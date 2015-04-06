@@ -8,7 +8,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tdc.component.bean.CaseFolderVO;
+import com.tdc.component.bean.CaseFolderSO;
 import com.tdc.persistence.dao.entity.Casefolder;
 import com.tdc.persistence.dao.interfaces.CaseFolderDAO;
 @Repository

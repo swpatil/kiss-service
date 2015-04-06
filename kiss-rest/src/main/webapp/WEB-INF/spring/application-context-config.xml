@@ -35,7 +35,14 @@
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 	<bean class="com.tdc.util.IndexProcessor" />
- 	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper"/>
-
+<!--  	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper"/> -->
+	            
+	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
+	  <property name="mappingFiles">
+	    <list>
+	      <value>dozer-mapping.xml</value>
+	    </list>
+	  </property>
+	</bean>
 
 </beans>

@@ -2,6 +2,7 @@ package com.tdc.component.service;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tdc.component.bean.CableUnitVO;
-import com.tdc.component.bean.CaseFolderVO;
+import com.tdc.component.bean.CableUnitTreeSO;
+import com.tdc.component.bean.CableUnitSO;
+import com.tdc.component.bean.CaseFolderTreeSO;
+import com.tdc.component.bean.CaseFolderSO;
+import com.tdc.component.bean.OfferSO;
+import com.tdc.component.bean.OfferTreeSO;
 import com.tdc.persistence.dao.entity.Cableunit;
 import com.tdc.persistence.dao.entity.Casefolder;
 import com.tdc.persistence.dao.interfaces.CableUnitDAO;
@@ -32,33 +37,53 @@ private CaseFolderDAO caseFolderDAO;
 
 
 @Transactional
-public CableUnitVO getCuTreeBeanDetail(String id) {
+public CableUnitSO getCuTreeBeanDetail(String id) {
 		
 		Cableunit cableunit=cableUnitDAO.find(id);
-		CableUnitVO bean =dozerBeanMapper.map(cableunit, CableUnitVO.class);
-		Set<Casefolder> caseFolder=cableunit.getCaseFolder();
+		CableUnitSO bean =dozerBeanMapper.map(cableunit, CableUnitSO.class);
+
 		return bean;
 	}
 	
 @Transactional
-public CableUnitVO findByCUNumber(String id) {
+public CableUnitTreeSO findByCUNumber(String customerNumber) {
 
-		Cableunit cableunit=cableUnitDAO.findByCUNumber(id);
-		CableUnitVO bean =dozerBeanMapper.map(cableunit, CableUnitVO.class);
-		
-		  List<Casefolder> caseFolderList=caseFolderDAO.findByCUNumber(id);
-		  List<CaseFolderVO> caseFolderVO=new ArrayList<CaseFolderVO>();
-			List<CaseFolderVO> CaseFolderVOList = mapArray(caseFolderList,
-					CaseFolderVO.class);
-			/*
-	    for (Casefolder casefolder2 : caseFolderBeanList) {
-	    	CaseFolderVO ex= new CaseFolderVO();
-	    	ex=dozerBeanMapper.map(casefolder2, CaseFolderVO.class);
-	    	caseFolderVO.add(ex);
-	    	System.out.println(caseFolderBeanList.get(0));
-		}*/
-	    	
-		return bean;
+		Cableunit cableunit=cableUnitDAO.findByCUNumber(customerNumber);
+		CableUnitSO cableUnitSO =dozerBeanMapper.map(cableunit, CableUnitSO.class);
+
+		CableUnitTreeSO cableUnitTreeSO=formCableUnitTree(cableUnitSO);
+		return cableUnitTreeSO;
 	}
+
+public CableUnitTreeSO formCableUnitTree(CableUnitSO cableUnitSO) {
+
+
+	CableUnitTreeSO cableUnitTreeSO = new CableUnitTreeSO();
+	cableUnitTreeSO.setId(cableUnitSO.getAnlAnlaegsnr());
+	cableUnitTreeSO.setTitle(cableUnitSO.getAnlAnlaegsnavn());
+	Set<CaseFolderTreeSO> caseFolderTreeSet= new HashSet<CaseFolderTreeSO>();
+	for (CaseFolderSO caseFolderSO : cableUnitSO.getCaseFolder()) {
+		Set<OfferTreeSO> offerTreeSOSet= new HashSet<OfferTreeSO>();
+		CaseFolderTreeSO caseFolderTreeSO=new CaseFolderTreeSO();
+		caseFolderTreeSO.setId(caseFolderSO.getId());
+		caseFolderTreeSO.setTitle(caseFolderSO.getSalestype().getHead()+" "+caseFolderSO.getSagsnr());
+		for (OfferSO offerSO : caseFolderSO.getOffers()) {
+
+			OfferTreeSO offerTree= new OfferTreeSO();
+			if(offerSO.getId()!=null){
+				offerTree.setId(offerSO.getId());
+				if(offerSO.getSalesconcept() !=null)
+					offerTree.setTitle(offerSO.getSalesconcept().getCode());
+				else
+					offerTree.setTitle("ej tildelt");
+				offerTreeSOSet.add(offerTree);
+			}
+		}
+		caseFolderTreeSO.setNodes(offerTreeSOSet);
+		caseFolderTreeSet.add(caseFolderTreeSO);
+	}
+	cableUnitTreeSO.setNodes(caseFolderTreeSet);
+	return cableUnitTreeSO;
+}
 	
 }

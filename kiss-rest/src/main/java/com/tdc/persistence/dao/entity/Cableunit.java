@@ -106,7 +106,7 @@ public class Cableunit implements java.io.Serializable {
 	private Character blandSelvChk;
 	private String currentCaseNumber;
 	private String latestCaseNumber;
-	private Set<Casefolder> caseFolder = new HashSet<Casefolder>(0);
+	private Set<Casefolder> casefolder = new HashSet<Casefolder>(0);
 
 
 	public Cableunit() {
@@ -216,7 +216,7 @@ public class Cableunit implements java.io.Serializable {
 		this.blandSelvChk = blandSelvChk;
 		this.currentCaseNumber = currentCaseNumber;
 		this.latestCaseNumber = latestCaseNumber;
-		this.caseFolder=caseFolder;
+		this.casefolder=casefolder;
 	}
 
 	@Id
@@ -909,11 +909,11 @@ public class Cableunit implements java.io.Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cableunit")
 	public Set<Casefolder> getCaseFolder() {
-		return caseFolder;
+		return casefolder;
 	}
 
 	public void setCaseFolder(Set<Casefolder> caseFolder) {
-		this.caseFolder = caseFolder;
+		this.casefolder = caseFolder;
 	}
 
 

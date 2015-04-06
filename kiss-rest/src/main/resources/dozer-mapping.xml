@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<configuration>
+		<stop-on-errors>true</stop-on-errors>
+		<date-format>MM/dd/yyyy HH:mm</date-format>
+		<wildcard>true</wildcard>
+	</configuration>
+
+	<mapping map-id="cableunittree">
+		<class-a>com.tdc.persistence.dao.entity.Cableunit</class-a>
+		<class-b>com.tdc.component.bean.CableUnitTreeSO</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>anlAnlaegsnavn</a>
+			<b>title</b>
+		</field>
+		<field map-id="casetreeso">
+			<a>casefolder</a>
+			<b>nodes</b>
+		</field>
+	</mapping>
+	<mapping map-id="casetreeso">
+		<class-a>com.tdc.persistence.dao.entity.Casefolder</class-a>
+		<class-b>com.tdc.component.bean.CaseFolderTreeSO</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>primcableunit</a>
+			<b>title</b>
+		</field>
+		<field map-id="offertreeso">
+			<a>offers</a>
+			<b>nodes</b>
+		</field>
+	</mapping>
+	<mapping map-id="offertreeso">
+		<class-a>com.tdc.persistence.dao.entity.Offer</class-a>
+		<class-b>com.tdc.component.bean.OfferTreeSO</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>head</a>
+			<b>title</b>
+		</field>
+	</mapping>
+	
+</mappings>
