@@ -61,16 +61,19 @@ public CableUnitTreeSO formCableUnitTree(CableUnitSO cableUnitSO) {
 	CableUnitTreeSO cableUnitTreeSO = new CableUnitTreeSO();
 	cableUnitTreeSO.setId(cableUnitSO.getAnlAnlaegsnr());
 	cableUnitTreeSO.setTitle(cableUnitSO.getAnlAnlaegsnavn());
+	cableUnitTreeSO.setType("cu");
 	Set<CaseFolderTreeSO> caseFolderTreeSet= new HashSet<CaseFolderTreeSO>();
 	for (CaseFolderSO caseFolderSO : cableUnitSO.getCaseFolder()) {
 		Set<OfferTreeSO> offerTreeSOSet= new HashSet<OfferTreeSO>();
 		CaseFolderTreeSO caseFolderTreeSO=new CaseFolderTreeSO();
 		caseFolderTreeSO.setId(caseFolderSO.getId());
 		caseFolderTreeSO.setTitle(caseFolderSO.getSalestype().getHead()+" "+caseFolderSO.getSagsnr());
+		caseFolderTreeSO.setType("case");
 		for (OfferSO offerSO : caseFolderSO.getOffers()) {
 
 			OfferTreeSO offerTree= new OfferTreeSO();
 			if(offerSO.getId()!=null){
+				offerTree.setType("offer");
 				offerTree.setId(offerSO.getId());
 				if(offerSO.getSalesconcept() !=null)
 					offerTree.setTitle(offerSO.getSalesconcept().getCode());

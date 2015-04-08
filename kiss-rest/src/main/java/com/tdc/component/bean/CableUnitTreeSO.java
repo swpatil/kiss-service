@@ -7,6 +7,7 @@ public class CableUnitTreeSO {
 	
 	private String id;
 	private String title;
+	private String type;
 	
 	private Set<CaseFolderTreeSO> nodes = new HashSet<CaseFolderTreeSO>();
 
@@ -27,6 +28,12 @@ public class CableUnitTreeSO {
 	}
 	public void setNodes(Set<CaseFolderTreeSO> nodes) {
 		this.nodes = nodes;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	

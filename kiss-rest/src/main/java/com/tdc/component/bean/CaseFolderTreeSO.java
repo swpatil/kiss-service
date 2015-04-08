@@ -11,6 +11,7 @@ public class CaseFolderTreeSO {
 	private SalesTypeSO salestype;
 	private String casetype="Tillægsaftale";
 	private String casenumber;
+	private String type;
 	
 	private Set<OfferTreeSO> nodes = new HashSet<OfferTreeSO>();
 	public String getId() {
@@ -48,6 +49,12 @@ public class CaseFolderTreeSO {
 	}
 	public void setCasenumber(String casenumber) {
 		this.casenumber = casenumber;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	
