@@ -10,7 +10,7 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.stereotype.Component;
 
-import com.tdc.persistence.dao.entity.Cableunit;
+import com.tdc.persistence.kiss.dao.entity.Cableunit;
 
 @Component
 public class SearchEntityBean {

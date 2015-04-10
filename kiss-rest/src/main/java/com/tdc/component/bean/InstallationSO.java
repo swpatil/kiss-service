@@ -3,8 +3,6 @@ package com.tdc.component.bean;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.tdc.persistence.dao.entity.Generaltypevalue;
-
 public class InstallationSO {
 	
 	private String id;

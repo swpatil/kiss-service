@@ -4,6 +4,7 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
@@ -12,30 +13,44 @@
 		http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
 		http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+        http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+   <jpa:repositories base-package="com.tdc.persistence.repositories" entity-manager-factory-ref ="entityManagerFactoryAMS"/>
  
-	<context:component-scan base-package="com.tdc" />
+	<context:component-scan base-package="com.tdc"/>
 
 	<mvc:annotation-driven />
+
 	<tx:annotation-driven />
 
 
+	
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="kiss-persistence-unit" />
+	</bean>
+	
+	<bean id="entityManagerFactoryAMS"
+		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="ams-persistence-unit" />
 	</bean>
 
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-
+	
+	<bean id="transactionManagerAMS" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryAMS" />
+	</bean>
 
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-	<bean class="com.tdc.util.IndexProcessor" />
-<!--  	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper"/> -->
+<!--	<bean class="com.tdc.util.IndexProcessor" />
+  	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper"/> -->
 	            
 	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
 	  <property name="mappingFiles">

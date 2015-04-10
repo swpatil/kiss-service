@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tdc.component.bean.CableUnitSO;
 import com.tdc.component.bean.InstallationSO;
-import com.tdc.persistence.dao.entity.Installation;
-import com.tdc.persistence.dao.interfaces.InstallationDao;
+import com.tdc.persistence.kiss.dao.entity.Installation;
+import com.tdc.persistence.kiss.dao.interfaces.InstallationDao;
 
 @Service
 public class InstallationServiceImpl extends CommonServiceImpl implements InstallationService {

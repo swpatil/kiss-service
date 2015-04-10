@@ -12,28 +12,51 @@
 	<name>kiss rest</name>
 
 	<dependencies>
-	
 
+
+		
+		<!-- DataSource (HikariCP) -->
 		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<version>1.0.1.Final</version>
-		</dependency>
+		    <groupId>com.zaxxer</groupId>
+		    <artifactId>HikariCP-java6</artifactId>
+		    <version>2.3.6</version>
+		  
+        </dependency>
+
+		<!-- JPA Provider (Hibernate) -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.0.1.Final</version>
+			<version>4.3.7.Final</version>
 		</dependency>
+
+		<!-- Spring Data JPA -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.8.0.RELEASE</version>
+			 <exclusions>
+		        <exclusion>  <!-- declare the exclusion here -->
+		          <groupId>org.springframework</groupId>
+		          <artifactId>spring-aop</artifactId>
+		        </exclusion>
+		        <exclusion>  <!-- declare the exclusion here -->
+		          <groupId>org.springframework</groupId>
+		          <artifactId>spring-tx</artifactId>
+		        </exclusion>
+		        <exclusion>  <!-- declare the exclusion here -->
+		          <groupId>org.springframework</groupId>
+		          <artifactId>spring-beans</artifactId>
+		        </exclusion>
+            </exclusions> 
+		</dependency>
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search</artifactId>
 			<version>4.1.1.Final</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>4.1.6.RELEASE</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
@@ -45,4 +68,6 @@
 			<version>4.1.6.RELEASE</version>
 		</dependency>
 	</dependencies>
+
+
 </project>
