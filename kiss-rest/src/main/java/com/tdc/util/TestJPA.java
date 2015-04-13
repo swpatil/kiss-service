@@ -1,19 +1,9 @@
 package com.tdc.util;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.query.dsl.QueryBuilder;
-
-import com.tdc.persistence.dao.entity.Cableunit;
 
 public class TestJPA {
 	
-	private EntityManager manager;
+	/*private EntityManager manager;
 	 
     public TestJPA(EntityManager manager) {
         this.manager = manager;
@@ -64,5 +54,5 @@ public class TestJPA {
 	        em.close();
 	 
 	    }
-
+*/
 }

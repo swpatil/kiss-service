@@ -1,9 +1,10 @@
-package com.tdc.component.bean;
+package com.tdc.util;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
-public class AddressSO implements Serializable {
+public class SearchAddressRequest implements Serializable {
 
 	/**
 	 * 
@@ -18,7 +19,14 @@ public class AddressSO implements Serializable {
 	private Boolean zapFictive;
 	private Date enddate;
 	private Date createddate;
-	//private StreetSO streets;
+	private Short streetcode;
+	private String streetname;
+	private String source;
+	private short municipalitycode;
+	private String municipalityname;
+
+	private BigDecimal regionid;
+	private String regionname;
 
 	public String getHouseno() {
 		return houseno;
@@ -84,12 +92,60 @@ public class AddressSO implements Serializable {
 		this.createddate = createddate;
 	}
 
-	/*public StreetSO getStreets() {
-		return streets;
+	public Short getStreetcode() {
+		return streetcode;
 	}
 
-	public void setStreets(StreetSO streets) {
-		this.streets = streets;
+	public void setStreetcode(Short streetcode) {
+		this.streetcode = streetcode;
 	}
-*/
+
+	public String getStreetname() {
+		return streetname;
+	}
+
+	public void setStreetname(String streetname) {
+		this.streetname = streetname;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public short getMunicipalitycode() {
+		return municipalitycode;
+	}
+
+	public void setMunicipalitycode(short municipalitycode) {
+		this.municipalitycode = municipalitycode;
+	}
+
+	public String getMunicipalityname() {
+		return municipalityname;
+	}
+
+	public void setMunicipalityname(String municipalityname) {
+		this.municipalityname = municipalityname;
+	}
+
+	public BigDecimal getRegionid() {
+		return regionid;
+	}
+
+	public void setRegionid(BigDecimal regionid) {
+		this.regionid = regionid;
+	}
+
+	public String getRegionname() {
+		return regionname;
+	}
+
+	public void setRegionname(String regionname) {
+		this.regionname = regionname;
+	}
+
 }
