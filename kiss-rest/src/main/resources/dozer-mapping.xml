@@ -10,7 +10,7 @@
 	</configuration>
 
 	<mapping map-id="cableunittree">
-		<class-a>com.tdc.persistence.dao.entity.Cableunit</class-a>
+		<class-a>com.tdc.persistence.kiss.dao.entity.Cableunit</class-a>
 		<class-b>com.tdc.component.bean.CableUnitTreeSO</class-b>
 		<field>
 			<a>id</a>
@@ -26,7 +26,7 @@
 		</field>
 	</mapping>
 	<mapping map-id="casetreeso">
-		<class-a>com.tdc.persistence.dao.entity.Casefolder</class-a>
+		<class-a>com.tdc.persistence.kiss.dao.entity.Casefolder</class-a>
 		<class-b>com.tdc.component.bean.CaseFolderTreeSO</class-b>
 		<field>
 			<a>id</a>
@@ -42,7 +42,7 @@
 		</field>
 	</mapping>
 	<mapping map-id="offertreeso">
-		<class-a>com.tdc.persistence.dao.entity.Offer</class-a>
+		<class-a>com.tdc.persistence.kiss.dao.entity.Offer</class-a>
 		<class-b>com.tdc.component.bean.OfferTreeSO</class-b>
 		<field>
 			<a>id</a>
