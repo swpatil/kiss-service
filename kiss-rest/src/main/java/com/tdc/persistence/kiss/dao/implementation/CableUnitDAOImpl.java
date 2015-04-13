@@ -1,5 +1,6 @@
 package com.tdc.persistence.kiss.dao.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -23,6 +24,17 @@ public class CableUnitDAOImpl extends GenericDaoImpl<Cableunit, String>
 
 		return cableunit.get(0);
 	
+	}
+
+	@Transactional(readOnly = true)
+	public List<String> findCusByNumber(String cuNumber) {
+		// TODO Auto-generated method stub
+		Query query = getEntityManager().createQuery("select CU.anlAnlaegsnr from Cableunit CU where CU.anlAnlaegsnr LIKE :anlAnlaegsnr");
+	    query.setParameter("anlAnlaegsnr", "%"+cuNumber+"%");
+		query.setMaxResults(10);
+		
+		List<String> list = query.getResultList();
+		return list;
 	}
 
 }

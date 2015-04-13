@@ -1,5 +1,7 @@
 package com.tdc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +26,21 @@ public class CableUnitController {
 		System.out.println(id);
 		return cableUnitService.getCuTreeBeanDetail(id);
 	}
+	
 	@RequestMapping(value="/cu/{customerNumber}",method = RequestMethod.GET,  produces="application/json")
 	public CableUnitTreeSO findByCUNumber(@PathVariable String customerNumber) {
 		return cableUnitService.findByCUNumber(customerNumber);
 		
 	}
 	
+	@RequestMapping(value="/cus/{customerNumber}",method = RequestMethod.GET,  produces="application/json")
+	public List<String> findCusByNumber(@PathVariable String customerNumber) {
+		return cableUnitService.findCusByNumber(customerNumber);
+	}
+		
+	@RequestMapping(value="/search/cus/{customerNumber}",method = RequestMethod.GET,  produces="application/json")
+	public List<String> searchCusByNumber(@PathVariable String customerNumber) {
+			return cableUnitService.searchCubyNumber(customerNumber);
+		
+	}
 }

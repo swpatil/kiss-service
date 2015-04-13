@@ -1,6 +1,8 @@
 package com.tdc.component.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.tdc.component.bean.CaseFolderSO;
 import com.tdc.component.bean.CaseFolderTreeSO;
 import com.tdc.component.bean.OfferSO;
 import com.tdc.component.bean.OfferTreeSO;
+import com.tdc.component.bean.SearchEntityBean;
 import com.tdc.persistence.kiss.dao.entity.Cableunit;
 import com.tdc.persistence.kiss.dao.interfaces.CableUnitDAO;
 import com.tdc.persistence.kiss.dao.interfaces.CaseFolderDAO;
@@ -26,6 +29,9 @@ public class CableUnitServiceImpl extends CommonServiceImpl implements
 
 	@Autowired
 	private CaseFolderDAO caseFolderDAO;
+	
+	@Autowired
+	private SearchEntityBean searchEntiyBean;
 
 	@Transactional
 	public CableUnitSO getCuTreeBeanDetail(String id) {
@@ -79,6 +85,29 @@ public class CableUnitServiceImpl extends CommonServiceImpl implements
 		}
 		cableUnitTreeSO.setNodes(caseFolderTreeSet);
 		return cableUnitTreeSO;
+	}
+
+	@Override
+	public List<String> findCusByNumber(String customerNumber) {
+		// TODO Auto-generated method stub
+		return cableUnitDAO.findCusByNumber(customerNumber);
+		
+		//return null;
+	}
+
+	@Override
+	public List<String> searchCubyNumber(String cuNumber) {
+		// TODO Auto-generated method stub
+		
+		List<Cableunit> cus =searchEntiyBean.hibernatesearch("anlAnlaegsnr", cuNumber, Cableunit.class);
+		
+		List<String> cuNos = new ArrayList<String>();
+		
+		for(Cableunit cu:cus){
+			cuNos.add(cu.getAnlAnlaegsnr() +' ' +cu.getAnlAnlaegsnavn());
+		}
+		
+		return cuNos;
 	}
 
 }
