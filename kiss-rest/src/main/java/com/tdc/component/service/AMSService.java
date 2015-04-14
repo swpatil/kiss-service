@@ -1,15 +1,10 @@
 package com.tdc.component.service;
 
-import java.util.List;
-
-import com.tdc.component.bean.AddressSO;
+import com.tdc.component.bean.AddressResult;
 import com.tdc.util.SearchAddressRequest;
 
 public interface AMSService {
 
-	public List<AddressSO> getAddressByCriteria(
-			SearchAddressRequest addressRequest);
+	public AddressResult getAddressByCriteria(SearchAddressRequest addressRequest,int pageNumber);
 
-	public List<AddressSO> getAllAddressesByHouseAndFloorNr(String hsNr,
-			String floorNr);
 }

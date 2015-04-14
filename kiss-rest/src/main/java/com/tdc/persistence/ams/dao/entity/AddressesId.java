@@ -3,6 +3,7 @@ package com.tdc.persistence.ams.dao.entity;
 // Generated 09-04-2015 18:59:20 by Hibernate Tools 4.0.0
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 

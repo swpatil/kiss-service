@@ -11,7 +11,7 @@ public class RegionSO implements Serializable{
 	private BigDecimal regionid;
 	private String regionname;
 	private boolean accessClass;
-	private Set<MunicipalitySO> municipalitieses ;
+	//private Set<MunicipalitySO> municipalitieses ;
 	public BigDecimal getRegionid() {
 		return regionid;
 	}
@@ -30,12 +30,12 @@ public class RegionSO implements Serializable{
 	public void setAccessClass(boolean accessClass) {
 		this.accessClass = accessClass;
 	}
-	public Set<MunicipalitySO> getMunicipalitieses() {
+	/*public Set<MunicipalitySO> getMunicipalitieses() {
 		return municipalitieses;
 	}
 	public void setMunicipalitieses(Set<MunicipalitySO> municipalitieses) {
 		this.municipalitieses = municipalitieses;
-	}
+	}*/
 	
 	
 

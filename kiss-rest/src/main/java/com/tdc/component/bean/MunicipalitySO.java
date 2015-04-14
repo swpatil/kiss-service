@@ -15,7 +15,7 @@ public class MunicipalitySO implements Serializable{
 	private short municipalitycode;
 	private RegionSO regions;
 	private String municipalityname;
-	private Set<StreetSO> streetses = new HashSet<StreetSO>(0);
+	//private Set<StreetSO> streetses = new HashSet<StreetSO>(0);
 	public short getMunicipalitycode() {
 		return municipalitycode;
 	}
@@ -34,12 +34,12 @@ public class MunicipalitySO implements Serializable{
 	public void setMunicipalityname(String municipalityname) {
 		this.municipalityname = municipalityname;
 	}
-	public Set<StreetSO> getStreetses() {
+	/*public Set<StreetSO> getStreetses() {
 		return streetses;
 	}
 	public void setStreetses(Set<StreetSO> streetses) {
 		this.streetses = streetses;
-	}
+	}*/
 	
 	
 	

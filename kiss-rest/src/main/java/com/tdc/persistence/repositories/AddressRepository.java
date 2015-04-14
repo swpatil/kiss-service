@@ -13,6 +13,8 @@ public interface AddressRepository extends JpaRepository<Addresses, Long>, JpaSp
 	
 	List<Addresses> findByHousenoAndFloor(String hsnr,String floorNo);
 	
+	Addresses findByIdAddressId(long id);
+	
 	@Query("Select add from Addresses add where add.streets.streetname= :streetName")
 	List<Addresses> findByStreetsAndHouseno(@Param("streetName") String streetName);
 	

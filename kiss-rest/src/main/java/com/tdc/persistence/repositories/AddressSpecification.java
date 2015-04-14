@@ -22,10 +22,9 @@ public class AddressSpecification {
 
 			List<Predicate> predicates = new ArrayList<Predicate>();
 
-			@Override
 			public Predicate toPredicate(Root<Addresses> addressRoot,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
-				
+
 				if (addressRequest.getStreetname() != null) {
 					predicates.add(cb.equal(
 							addressRoot.get("streets").get("streetname"),
@@ -38,6 +37,22 @@ public class AddressSpecification {
 				if (addressRequest.getFloor() != null) {
 					predicates.add(cb.equal(addressRoot.get("floor"),
 							addressRequest.getFloor()));
+				}
+				if (addressRequest.getPostalcode() != null) {
+					predicates.add(cb.equal(addressRoot.get("postalcode"),
+							addressRequest.getPostalcode()));
+				}
+				if (addressRequest.getMunicipalitycode()!= 0) {
+					predicates.add(cb.equal(addressRoot.get("streets").get("municipalities").get("municipalitycode"),
+							addressRequest.getMunicipalitycode()));
+				}
+				if (addressRequest.getMunicipalityname()!= null) {
+					predicates.add(cb.equal(addressRoot.get("streets").get("municipalities").get("municipalityname"),
+							addressRequest.getMunicipalityname()));
+				}
+				if (addressRequest.getMunicipalityname()!= null) {
+					predicates.add(cb.equal(addressRoot.get("streets").get("municipalities").get("municipalityname"),
+							addressRequest.getMunicipalityname()));
 				}
 				return cb.and(predicates.toArray(new Predicate[] {}));
 			}

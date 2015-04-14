@@ -18,7 +18,7 @@ public class AddressSO implements Serializable {
 	private Boolean zapFictive;
 	private Date enddate;
 	private Date createddate;
-	//private StreetSO streets;
+	private StreetSO streets;
 
 	public String getHouseno() {
 		return houseno;
@@ -84,12 +84,12 @@ public class AddressSO implements Serializable {
 		this.createddate = createddate;
 	}
 
-	/*public StreetSO getStreets() {
+	public StreetSO getStreets() {
 		return streets;
 	}
 
 	public void setStreets(StreetSO streets) {
 		this.streets = streets;
 	}
-*/
+
 }
