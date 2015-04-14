@@ -27,6 +27,17 @@ public class InstallationSO {
 	private String delu;
 	private String jobflag;
 	private String jobremarks;
+	private String lbnr;
+	private AddressSO address;
+	
+	
+	
+	public AddressSO getAddress() {
+		return address;
+	}
+	public void setAddress(AddressSO address) {
+		this.address = address;
+	}
 	public String getId() {
 		return id;
 	}
@@ -152,6 +163,12 @@ public class InstallationSO {
 	}
 	public void setJobremarks(String jobremarks) {
 		this.jobremarks = jobremarks;
+	}
+	public String getLbnr() {
+		return lbnr;
+	}
+	public void setLbnr(String lbnr) {
+		this.lbnr = lbnr;
 	}
 	
 	

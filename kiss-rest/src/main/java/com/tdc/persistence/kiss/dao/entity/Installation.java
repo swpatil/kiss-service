@@ -4,15 +4,20 @@ package com.tdc.persistence.kiss.dao.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 /**
@@ -45,6 +50,7 @@ public class Installation implements java.io.Serializable {
 	private String delu;
 	private String jobflag;
 	private String jobremarks;
+	private String lbnr;
 
 	public Installation() {
 	}
@@ -64,7 +70,7 @@ public class Installation implements java.io.Serializable {
 			Long addressidmovedto, String installationseqmovedto,
 			String cableunitidmovefrom, String cableunitidmoveto,
 			Date movingdate, Date crd, String cru, Date modd, String modu,
-			Date deld, String delu, String jobflag, String jobremarks) {
+			Date deld, String delu, String jobflag, String jobremarks,String lbnr) {
 		this.id = id;
 		this.generaltypevalue = generaltypevalue;
 		this.addressid = addressid;
@@ -87,9 +93,12 @@ public class Installation implements java.io.Serializable {
 		this.delu = delu;
 		this.jobflag = jobflag;
 		this.jobremarks = jobremarks;
+		this.lbnr =lbnr;
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="INSTALLATION_SEQ")
+	@SequenceGenerator(name="INSTALLATION_SEQ", sequenceName="INSTALLATION_SEQ", allocationSize=1)
 	@Column(name = "ID", unique = true, nullable = false, length = 19)
 	public String getId() {
 		return this.id;
@@ -296,4 +305,14 @@ public class Installation implements java.io.Serializable {
 		this.jobremarks = jobremarks;
 	}
 
+	@Transient
+	public String getLbnr() {
+		return lbnr;
+	}
+
+	public void setLbnr(String lbnr) {
+		this.lbnr = lbnr;
+	}
+
+	
 }

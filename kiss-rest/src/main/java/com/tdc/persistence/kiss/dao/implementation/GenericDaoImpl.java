@@ -50,6 +50,11 @@ public abstract class GenericDaoImpl<T, I extends Serializable> implements
 	public void saveOrUpdate(T obj) {
 		getEntityManager().merge(obj);
 	}
+	
+	@Transactional
+	public T save(T obj){
+		return getEntityManager().merge(obj);
+	}
 
 
 }
