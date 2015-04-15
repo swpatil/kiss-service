@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,12 +67,13 @@ public class InstallationDaoImpl extends GenericDaoImpl<Installation, String> im
 	}
 	
 	
-	public List<Installation> getCableUnitInstallationsForInstallationIds(String cableUnitNumber, List <String> installationIds){
+	public List<Installation> getCableUnitInstallationsForInstallationIds(String cableUnitNumber, List <String> installationIds,int firstResults,int maxResults){
 		
 		
 		List<Installation> instList = new ArrayList<Installation>();
 		Query query = getEntityManager().createNativeQuery("SELECT CUI.ID id,CUI.MODD modd, ikc.inst_lbnr lbnr FROM INSTALLATION CUI, GENERALTYPEVALUE GTV,installationkeycabinet ikc WHERE 1=1 AND GTV.ID = INSTALLATIONSTATUSID AND ikc.STARTDATO = CUI.STARTDATE AND ikc.INSTALLATIONSEQ = CUI.INSTALLATIONSEQ AND GTV.CODE NOT IN ('8-IS','9-IS') AND CUI.CABLEUNITID=?1 AND CUI.ID=?2",Installation.class);
 		query.setParameter(1, cableUnitNumber);
+		query.setFirstResult(firstResults).setMaxResults(maxResults);
 		
 		for(String id:installationIds){
 			query.setParameter(2, id);
@@ -97,6 +99,11 @@ public class InstallationDaoImpl extends GenericDaoImpl<Installation, String> im
 			insts = query.getResultList();
 		}
 		return insts;
+	}
+
+	public Long countInstallations() {
+		 TypedQuery<Long> query = this.entityManager.createQuery("select count(m) from Installation  m", Long.class);
+		 return query.getSingleResult();
 	}
 	
 
