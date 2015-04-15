@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tdc.component.bean.AddressSO;
 import com.tdc.component.bean.ErrorDetailSO;
+import com.tdc.component.bean.InstallationResult;
 import com.tdc.component.bean.InstallationSO;
 import com.tdc.persistence.ams.dao.entity.Addresses;
 import com.tdc.persistence.ams.dao.entity.Amskeycabinet;
@@ -32,6 +33,8 @@ import com.tdc.persistence.repositories.AmsKeyCabinetRepository;
 
 @Service
 public class InstallationServiceImpl extends CommonServiceImpl implements InstallationService {
+	
+	private static final int PAGE_SIZE = 200;
 
 	@Autowired
 	private InstallationDao installationDao;
@@ -64,8 +67,8 @@ public class InstallationServiceImpl extends CommonServiceImpl implements Instal
 	}
 
 	@Transactional
-	public List<InstallationSO> getInstallationsByCustomerNumber(
-			String customerNumber) {
+	public InstallationResult getInstallationsByCustomerNumber(
+			String customerNumber,int pagNo) {
 
 		Map<Long, List<String> >  addressIdsMap = installationDao.getAllAddressIdsWithInstallation(customerNumber);
 		Set<Long> addressKeys = addressIdsMap.keySet();
@@ -107,8 +110,14 @@ public class InstallationServiceImpl extends CommonServiceImpl implements Instal
 
             }
         }*/
+		 int firstResult = (pagNo==0)?0:(pagNo-1) * PAGE_SIZE;
+		 List<Installation> insts = installationDao.getCableUnitInstallationsForInstallationIds(customerNumber, installationIds,firstResult,200);
+		 	 
 		
-		List<Installation> insts = installationDao.getCableUnitInstallationsForInstallationIds(customerNumber, installationIds);
+		 float nrOfPages = (float)this.installationDao.countInstallations()/PAGE_SIZE;		 
+		 int maxPages = (int)( ((nrOfPages>(int)nrOfPages) || nrOfPages==0.0)?nrOfPages+1:nrOfPages);
+
+			
 
 		// Total no of records
      /*   int totalRecord=0;
@@ -133,7 +142,11 @@ public class InstallationServiceImpl extends CommonServiceImpl implements Instal
 			}
 		}
 		
-		return list;
+		 InstallationResult installationResult = new InstallationResult();
+		 installationResult.setInstallations(list);
+		 installationResult.setTotalPages(maxPages);
+		 
+		return installationResult;
 	}
 	
 	@Transactional

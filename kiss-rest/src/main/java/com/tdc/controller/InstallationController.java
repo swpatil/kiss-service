@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tdc.component.bean.CreateCableUnitInstallationSO;
 import com.tdc.component.bean.ErrorDetailSO;
+import com.tdc.component.bean.InstallationResult;
 import com.tdc.component.bean.InstallationSO;
 import com.tdc.component.service.InstallationService;
 
@@ -27,8 +29,8 @@ public class InstallationController {
 	}
 	
 	@RequestMapping(value="/{customerNumber}",method = RequestMethod.GET,  produces="application/json")
-	public List<InstallationSO> getInstallationsByCustomer(@PathVariable String customerNumber){
-		return installationService.getInstallationsByCustomerNumber(customerNumber);
+	public InstallationResult getInstallationsByCustomer(@PathVariable String customerNumber,@RequestParam("pageNo") int pageNo){
+		return installationService.getInstallationsByCustomerNumber(customerNumber,pageNo);
 	}
 	
 	@RequestMapping(value="/createInstallations",method = RequestMethod.POST,produces="application/json")
