@@ -10,6 +10,7 @@ public class AddressSO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private AddressIdSO id;
 	private String houseno;
 	private String floor;
 	private String door;
@@ -19,6 +20,16 @@ public class AddressSO implements Serializable {
 	private Date enddate;
 	private Date createddate;
 	private StreetSO streets;
+	
+	
+
+	public AddressIdSO getId() {
+		return id;
+	}
+
+	public void setId(AddressIdSO id) {
+		this.id = id;
+	}
 
 	public String getHouseno() {
 		return houseno;
