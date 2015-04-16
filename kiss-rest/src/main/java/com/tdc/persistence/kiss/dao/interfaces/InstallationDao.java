@@ -14,6 +14,6 @@ public interface InstallationDao extends GenericDAO<Installation, String> {
 	public List<Installation> getCableUnitInstallationsForInstallationIds(String cableUnitNumber, List <String> installationIds,int firstResults,int maxResults);
 	public Map<Long, List<String>> getAllAddressIdsWithInstallation(String cableUnitNumber);
 	
-	 public Long countInstallations();
+	 public Long  countInstallations(String customerNo);
 
 }

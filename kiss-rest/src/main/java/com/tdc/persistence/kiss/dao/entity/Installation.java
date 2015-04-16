@@ -54,6 +54,15 @@ public class Installation implements java.io.Serializable {
 
 	public Installation() {
 	}
+	
+	public Installation(String id, Date modd, String lbnr){
+		
+		this.id = id;
+		this.modd=modd;
+		this.lbnr=lbnr;
+
+	    //-- Setting appropriate values
+	}
 
 	public Installation(String id, Generaltypevalue generaltypevalue,
 			long addressid, BigDecimal installationseq, String cableunitid) {

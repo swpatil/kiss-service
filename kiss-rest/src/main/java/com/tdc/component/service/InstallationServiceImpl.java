@@ -110,13 +110,19 @@ public class InstallationServiceImpl extends CommonServiceImpl implements Instal
 
             }
         }*/
-		 int firstResult = (pagNo==0)?0:(pagNo-1) * PAGE_SIZE;
+	     System.out.println(" pagNo " + pagNo); 
+		 int firstResult = (pagNo-1) * PAGE_SIZE;
+		 System.out.println(" firstResult " + firstResult);
+		 
 		 List<Installation> insts = installationDao.getCableUnitInstallationsForInstallationIds(customerNumber, installationIds,firstResult,200);
-		 	 
+		 System.out.println(" insts " + insts); 
 		
-		 float nrOfPages = (float)this.installationDao.countInstallations()/PAGE_SIZE;		 
+		 float nrOfPages = (float)this.installationDao.countInstallations(customerNumber)/PAGE_SIZE;		 
+		 
+		 System.out.println(" nrOfPages " + nrOfPages); 
+		 
 		 int maxPages = (int)( ((nrOfPages>(int)nrOfPages) || nrOfPages==0.0)?nrOfPages+1:nrOfPages);
-
+		 System.out.println(" maxPages " + maxPages); 
 			
 
 		// Total no of records

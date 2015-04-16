@@ -1,6 +1,7 @@
 package com.tdc.persistence.kiss.dao.implementation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -71,15 +72,29 @@ public class InstallationDaoImpl extends GenericDaoImpl<Installation, String> im
 		
 		
 		List<Installation> instList = new ArrayList<Installation>();
-		Query query = getEntityManager().createNativeQuery("SELECT CUI.ID id,CUI.MODD modd, ikc.inst_lbnr lbnr FROM INSTALLATION CUI, GENERALTYPEVALUE GTV,installationkeycabinet ikc WHERE 1=1 AND GTV.ID = INSTALLATIONSTATUSID AND ikc.STARTDATO = CUI.STARTDATE AND ikc.INSTALLATIONSEQ = CUI.INSTALLATIONSEQ AND GTV.CODE NOT IN ('8-IS','9-IS') AND CUI.CABLEUNITID=?1 AND CUI.ID=?2",Installation.class);
-		query.setParameter(1, cableUnitNumber);
-		query.setFirstResult(firstResults).setMaxResults(maxResults);
 		
-		for(String id:installationIds){
-			query.setParameter(2, id);
-			List<Installation> list =query.getResultList();
-			instList.addAll(list);
+		StringBuilder stringBuilder = new StringBuilder();
+		int i=0;
+		
+		for(i=0;i<installationIds.size();i++){
+	
+				stringBuilder.append(installationIds.get(i));
+				
+				if(i!=installationIds.size()-1){
+					stringBuilder.append(",");
+				}
 		}
+		List<String> instStrs = Arrays.asList(stringBuilder.toString());
+		// AND CUI.ID IN (?2)
+		Query query = getEntityManager().createNativeQuery("SELECT CUI.ID id,CUI.MODD modd, ikc.inst_lbnr lbnr FROM INSTALLATION CUI, GENERALTYPEVALUE GTV,"
+				+ "installationkeycabinet ikc WHERE 1=1 AND GTV.ID = INSTALLATIONSTATUSID AND ikc.STARTDATO = CUI.STARTDATE AND ikc.INSTALLATIONSEQ = CUI.INSTALLATIONSEQ AND GTV.CODE NOT IN ('8-IS','9-IS') AND CUI.CABLEUNITID=:cusNr",Installation.class);
+		query.setParameter("cusNr", cableUnitNumber);
+		//query.setParameter(2, instStrs);
+		
+		System.out.println(query.toString());
+		query.setMaxResults(maxResults).setFirstResult(firstResults);
+		
+		instList =query.getResultList();
 		
 		return instList;
 	}
@@ -101,8 +116,9 @@ public class InstallationDaoImpl extends GenericDaoImpl<Installation, String> im
 		return insts;
 	}
 
-	public Long countInstallations() {
-		 TypedQuery<Long> query = this.entityManager.createQuery("select count(m) from Installation  m", Long.class);
+	public Long countInstallations(String customerNo) {
+		 TypedQuery<Long> query = this.entityManager.createQuery("select count(m) from Installation  m where m.cableunitid=:custNr", Long.class);
+		 query.setParameter("custNr", customerNo);
 		 return query.getSingleResult();
 	}
 	
