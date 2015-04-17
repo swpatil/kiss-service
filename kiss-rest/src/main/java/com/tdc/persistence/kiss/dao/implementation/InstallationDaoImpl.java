@@ -74,29 +74,64 @@ public class InstallationDaoImpl extends GenericDaoImpl<Installation, String> im
 		List<Installation> instList = new ArrayList<Installation>();
 		
 		StringBuilder stringBuilder = new StringBuilder();
+		
+		
+		stringBuilder.append("SELECT CUI.ID id , CUI.MODD modd , ikc.inst_lbnr lbnr FROM INSTALLATION CUI, GENERALTYPEVALUE GTV,"
+				+ "INSTALLATIONKEYCABINET ikc WHERE 1=1 AND GTV.ID = INSTALLATIONSTATUSID AND ikc.STARTDATO = CUI.STARTDATE AND ikc.INSTALLATIONSEQ = CUI.INSTALLATIONSEQ AND GTV.CODE NOT IN ('8-IS','9-IS') AND CUI.CABLEUNITID=:cusNr");
+		
+		
+		
+		if(installationIds.size()>999)
+		{
+		    List<String> finallist=null;
+		    int count=1;
+		    for(String id: installationIds){
+		        if(count==1){
+		            finallist = new ArrayList<String>();
+		        }
+		        finallist.add(id);
+		        if(count==1000){
+		        	
+		        	stringBuilder.append(" OR CUI.ID IN " + "("+installationWithCommas(finallist)+")");
+		        			        	
+		            count=0;
+		        }
+		        count++;
+		    }
+		    if(installationIds.size()%1000!=0){
+		    	
+		    	stringBuilder.append(" OR CUI.ID IN " + "("+installationWithCommas(finallist)+")");
+		    }
+		}else{
+			stringBuilder.append(" OR CUI.ID IN " + "("+installationWithCommas(installationIds)+")");
+		}
+		
+		System.out.println(stringBuilder.toString());
+		Query query = getEntityManager().createNativeQuery(stringBuilder.toString(),Installation.class);		
+		query.setParameter("cusNr", cableUnitNumber);
+
+		query.setFirstResult(firstResults).setMaxResults(maxResults);
+		 
+		instList =query.getResultList();
+		
+		return instList;
+	}
+	
+	private String installationWithCommas(List<String> installationIds){
+		
+		StringBuilder stringBuilder = new StringBuilder();
 		int i=0;
 		
 		for(i=0;i<installationIds.size();i++){
 	
-				stringBuilder.append(installationIds.get(i));
+				stringBuilder.append("'"+installationIds.get(i)+"'");
 				
 				if(i!=installationIds.size()-1){
 					stringBuilder.append(",");
 				}
 		}
-		List<String> instStrs = Arrays.asList(stringBuilder.toString());
-		// AND CUI.ID IN (?2)
-		Query query = getEntityManager().createNativeQuery("SELECT CUI.ID id,CUI.MODD modd, ikc.inst_lbnr lbnr FROM INSTALLATION CUI, GENERALTYPEVALUE GTV,"
-				+ "installationkeycabinet ikc WHERE 1=1 AND GTV.ID = INSTALLATIONSTATUSID AND ikc.STARTDATO = CUI.STARTDATE AND ikc.INSTALLATIONSEQ = CUI.INSTALLATIONSEQ AND GTV.CODE NOT IN ('8-IS','9-IS') AND CUI.CABLEUNITID=:cusNr",Installation.class);
-		query.setParameter("cusNr", cableUnitNumber);
-		//query.setParameter(2, instStrs);
 		
-		System.out.println(query.toString());
-		query.setMaxResults(maxResults).setFirstResult(firstResults);
-		
-		instList =query.getResultList();
-		
-		return instList;
+		return stringBuilder.toString();
 	}
 
 	@Override
