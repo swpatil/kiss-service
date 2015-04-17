@@ -25,11 +25,13 @@ import com.tdc.persistence.kiss.dao.entity.Generaltypevalue;
 import com.tdc.persistence.kiss.dao.entity.Installation;
 import com.tdc.persistence.kiss.dao.entity.Installationkeycabinet;
 import com.tdc.persistence.kiss.dao.entity.InstallationkeycabinetId;
+import com.tdc.persistence.kiss.dao.interfaces.AmsKeyCabinetDao;
 import com.tdc.persistence.kiss.dao.interfaces.GeneraltypevalueDao;
 import com.tdc.persistence.kiss.dao.interfaces.InstallationDao;
 import com.tdc.persistence.kiss.dao.interfaces.InstallationKeyCabinetDao;
 import com.tdc.persistence.repositories.AddressRepository;
 import com.tdc.persistence.repositories.AmsKeyCabinetRepository;
+import com.tdc.util.OracleSequenceDao;
 
 @Service
 public class InstallationServiceImpl extends CommonServiceImpl implements InstallationService {
@@ -46,6 +48,9 @@ public class InstallationServiceImpl extends CommonServiceImpl implements Instal
 	private AddressRepository addressRepo;
 	
 	@Autowired
+	private AmsKeyCabinetDao  amsKeyCabinetDao;
+	
+	@Autowired
 	private InstallationKeyCabinetDao ikcDao;
 	
 	@Autowired
@@ -53,6 +58,9 @@ public class InstallationServiceImpl extends CommonServiceImpl implements Instal
 	
 	@Autowired
 	private AmsKeyCabinetRepository amsKeyCabinetRepository;
+	
+	@Autowired
+	private OracleSequenceDao oracleSequenceDao;
 	
 	@Transactional
 	public List<InstallationSO> getInstallationsByCuNumber(String customerNumber) {
@@ -155,7 +163,8 @@ public class InstallationServiceImpl extends CommonServiceImpl implements Instal
 		return installationResult;
 	}
 	
-	@Transactional
+	//@Transactional 
+	@Transactional(noRollbackFor = Exception.class)
 	public ErrorDetailSO createCableUnitInstallations(String cableUnitNumber,List<Long> addressIds) {
 		// TODO Auto-generated method stub
 		//check Cableunit exist or not
@@ -191,11 +200,21 @@ public class InstallationServiceImpl extends CommonServiceImpl implements Instal
 		//getAMSLocalService().findCasperIdByAmsId(addressId);
 		boolean result = false;
 		String casperId = null;
-		Amskeycabinet amskeycabinate = amsKeyCabinetRepository.findbyamsId(addressId);
+		System.out.println(cuNumber);
+		System.out.println(addressId);
+		Amskeycabinet amskeycabinet = null;
+		
+		/*try{
+		 amskeycabinet = amsKeyCabinetDao.findByAmsid(addressId);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}*/
+		
 		casperId ="0005302983";
-		if(amskeycabinate != null){
-			 casperId = amskeycabinate.getId().getCasperid();
-		}
+		/*if(amskeycabinet != null){
+			System.out.println("amskeycabinate.." + amskeycabinet);
+			 casperId = amskeycabinet.getId().getCasperid();
+		}*/
 		
 		System.out.println("Casper Id:"+casperId);
 	//find max lbnr by addressId and CasperId
@@ -212,22 +231,35 @@ public class InstallationServiceImpl extends CommonServiceImpl implements Instal
 		
 		ikcId.setAddressid(addressId);
 		ikcId.setStartdato(startDate);
-		
-		ikc.setId(ikcId);
+		try {
+			ikcId.setInstallationseq(new BigDecimal(oracleSequenceDao.getNextSequenceNumber("INSTALLATION_SEQ")));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    ikc.setId(ikcId);
+	    
 		
 		ikc.setCasperaddressid(casperId);
 		ikc.setStatus(getStatus(gtv).byteValue());
+		ikc.setInstLbnr(Integer.toString(maxlbnr));
 		ikc.setUnderFlytning(new BigDecimal(underMovement));
 		ikc.setAnlxg(cuNumber);
 		
 		Installationkeycabinet ikcCreated = ikcDao.save(ikc);
 		
+		System.out.println("ikcCreated.." + ikcCreated.getId().getInstallationseq());
+		
 		//create installtion
 		Installation inst = new Installation();
+		inst.setId(oracleSequenceDao.getNextKey(ikcCreated.getId().getInstallationseq().longValue()));
+		
+		System.out.println("inst seq id .." + inst.getId());
+		
 		inst.setAddressid(addressId);
 		inst.setCableunitid(cuNumber);
 		inst.setInstallationseq(ikcCreated.getId().getInstallationseq());
-		
+		inst.setGeneraltypevalue(gtv);
 		installationDao.save(inst);
 		
 		result = true;

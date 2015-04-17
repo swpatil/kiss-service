@@ -39,11 +39,7 @@ public class Installationkeycabinet implements java.io.Serializable {
 	public Installationkeycabinet() {
 	}
 
-	public Installationkeycabinet(InstallationkeycabinetId id,
-			String casperaddressid) {
-		this.id = id;
-		this.casperaddressid = casperaddressid;
-	}
+	
 
 	public Installationkeycabinet(InstallationkeycabinetId id,
 			String casperaddressid, String instLbnr, BigDecimal rowid,
