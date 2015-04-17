@@ -99,14 +99,18 @@ public class CableUnitServiceImpl extends CommonServiceImpl implements
 	public List<String> searchCubyNumber(String cuNumber) {
 		// TODO Auto-generated method stub
 		
-		List<Cableunit> cus =searchEntiyBean.hibernatesearch("anlAnlaegsnr", cuNumber, Cableunit.class);
+		String[] fieldstoSearch ={"anlAnlaegsnr","anlAnlaegsnavn"};
+		
+		List<Cableunit> cus =searchEntiyBean.hibernatesearch(fieldstoSearch, cuNumber, Cableunit.class);
 		
 		List<String> cuNos = new ArrayList<String>();
 		
+		if(cus !=null || !cus.isEmpty()){
+			
 		for(Cableunit cu:cus){
-			cuNos.add(cu.getAnlAnlaegsnr() +' ' +cu.getAnlAnlaegsnavn());
+			cuNos.add(cu.getAnlAnlaegsnavn() +' '+cu.getAnlAnlaegsnr());
 		}
-		
+		}		
 		return cuNos;
 	}
 
