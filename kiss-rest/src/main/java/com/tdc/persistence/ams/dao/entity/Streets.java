@@ -133,6 +133,7 @@ public class Streets implements java.io.Serializable {
 	}
 
 	@Column(name = "STREETCODE", precision = 4, scale = 0)
+	@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
 	public Short getStreetcode() {
 		return this.streetcode;
 	}

@@ -39,7 +39,9 @@ public class AMSController {
 	
 	@RequestMapping(value = "/street/search/{streetName}", method = RequestMethod.GET, produces = "application/json")
 	public List<String> getInstallationsByCu(@PathVariable String streetName){
-		List<Streets> streets= searchEntityBean.hibernatesearch("streetname", streetName, Streets.class);
+		
+		String[] fieldsToSearch = {"streetname","streetcode"};
+		List<Streets> streets= searchEntityBean.hibernatesearch(fieldsToSearch, streetName, Streets.class);
 		List<String> strname = new ArrayList<String>();
 		if(streets != null || !streets.isEmpty()){
 		for(Streets street :streets){

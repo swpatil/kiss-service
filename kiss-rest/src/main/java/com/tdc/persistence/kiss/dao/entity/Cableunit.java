@@ -387,6 +387,7 @@ public class Cableunit implements java.io.Serializable {
 	}
 
 	@Column(name = "ANL_ANLAEGSNR", length = 10)
+	@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
 	public String getAnlAnlaegsnr() {
 		return this.anlAnlaegsnr;
 	}

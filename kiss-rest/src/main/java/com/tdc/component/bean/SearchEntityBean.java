@@ -7,6 +7,8 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.hibernate.search.query.dsl.TermMatchingContext;
+import org.hibernate.search.query.dsl.WildcardContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +28,7 @@ public class SearchEntityBean {
 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public <T> List<T> hibernatesearch(String field, String fieldValue,
+	public <T> List<T> hibernatesearch(String[] fields, String fieldValue,
 			Class<T> clazz) {
 
 		List<T> result = null;
@@ -36,17 +38,26 @@ public class SearchEntityBean {
 
 		try {
 
-
 			QueryBuilder qb = fullTextEntityManager.getSearchFactory()
 					.buildQueryBuilder().forEntity(clazz).get();
-			org.apache.lucene.search.Query query = qb.keyword().onFields(field)
-					.matching(fieldValue).createQuery();
-			
 
+			/*
+			 * org.apache.lucene.search.Query query =
+			 * qb.keyword().wildcard().onField("").andField("")
+			 * .matching(fieldValue).createQuery();
+			 */
+
+			TermMatchingContext termMatching = qb.keyword().wildcard()
+					.onField(fields[0]);
+			for (int i = 1; i < fields.length; i++) {
+				termMatching.andField(fields[i]);
+			}
+			org.apache.lucene.search.Query query = termMatching.matching(
+					fieldValue + "*").createQuery();
 			// wrap Lucene query in a javax.persistence.Query
 			javax.persistence.Query persistenceQuery = fullTextEntityManager
 					.createFullTextQuery(query, clazz);
-			persistenceQuery.setMaxResults(10);
+			persistenceQuery.setMaxResults(20);
 
 			// execute search
 			result = persistenceQuery.getResultList();
