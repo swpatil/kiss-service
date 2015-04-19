@@ -31,6 +31,24 @@ public class OracleSequenceDao {
 		return StringUtils.rightPad(kissKeyPrefix, 19, '-');
 	}
 
+	
+	public Connection getConnection(){
+		Connection conn = null;
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			conn=DriverManager.getConnection(
+						"jdbc:oracle:thin:@Miraculix:1826:DCTVCRM", "kasia",
+						"kasia4kiss");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return conn;
+	}
+	
 	public long getNextSequenceNumber(String oracleSequenceName)
 			throws Exception {
 
@@ -39,12 +57,12 @@ public class OracleSequenceDao {
 		ResultSet results = null;
 		try {
 
-			Class.forName("oracle.jdbc.OracleDriver");
+			/*Class.forName("oracle.jdbc.OracleDriver");
 
 			connect = DriverManager.getConnection(
 					"jdbc:oracle:thin:@Miraculix:1826:DCTVCRM", "kasia",
-					"kasia4kiss");
-
+					"kasia4kiss");*/
+			connect = getConnection();
 			statement = connect.createStatement();
 			statement.executeQuery("select " + oracleSequenceName
 					+ ".nextval from DUAL");

@@ -106,8 +106,8 @@ public class Installation implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="INSTALLATION_SEQ")
-	@SequenceGenerator(name="INSTALLATION_SEQ", sequenceName="INSTALLATION_SEQ", allocationSize=1)
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="INSTALLATION_SEQ")
+	//@SequenceGenerator(name="INSTALLATION_SEQ", sequenceName="INSTALLATION_SEQ", allocationSize=1)
 	@Column(name = "ID", unique = true, nullable = false, length = 19)
 	public String getId() {
 		return this.id;
