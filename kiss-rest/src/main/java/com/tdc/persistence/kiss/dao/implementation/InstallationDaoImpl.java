@@ -70,7 +70,7 @@ public class InstallationDaoImpl extends GenericDaoImpl<Installation, String> im
 	
 	public List<Installation> getCableUnitInstallationsForInstallationIds(String cableUnitNumber, List <String> installationIds,int firstResults,int maxResults){
 		
-		
+		System.out.println("Inst ids for query: "+installationIds.size());
 		List<Installation> instList = new ArrayList<Installation>();
 		
 		StringBuilder stringBuilder = new StringBuilder();
@@ -92,7 +92,7 @@ public class InstallationDaoImpl extends GenericDaoImpl<Installation, String> im
 		        finallist.add(id);
 		        if(count==1000){
 		        	
-		        	stringBuilder.append(" OR CUI.ID IN " + "("+installationWithCommas(finallist)+")");
+		        	stringBuilder.append(" AND CUI.ID IN " + "("+installationWithCommas(finallist)+")");
 		        			        	
 		            count=0;
 		        }
@@ -100,10 +100,10 @@ public class InstallationDaoImpl extends GenericDaoImpl<Installation, String> im
 		    }
 		    if(installationIds.size()%1000!=0){
 		    	
-		    	stringBuilder.append(" OR CUI.ID IN " + "("+installationWithCommas(finallist)+")");
+		    	stringBuilder.append(" AND CUI.ID IN " + "("+installationWithCommas(finallist)+")");
 		    }
 		}else{
-			stringBuilder.append(" OR CUI.ID IN " + "("+installationWithCommas(installationIds)+")");
+			stringBuilder.append(" AND CUI.ID IN " + "("+installationWithCommas(installationIds)+")");
 		}
 		
 		System.out.println(stringBuilder.toString());

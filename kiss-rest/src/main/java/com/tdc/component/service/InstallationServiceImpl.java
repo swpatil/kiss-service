@@ -120,7 +120,7 @@ public class InstallationServiceImpl extends CommonServiceImpl implements
 		List<Installation> insts = installationDao
 				.getCableUnitInstallationsForInstallationIds(customerNumber,
 						installationIds, firstResult, 200);
-		System.out.println(" insts " + insts);
+		System.out.println(" insts size " + insts.size());
 
 		float nrOfPages = (float) this.installationDao
 				.countInstallations(customerNumber) / PAGE_SIZE;
