@@ -215,17 +215,17 @@ public class InstallationServiceImpl extends CommonServiceImpl implements
 		Amskeycabinet amskeycabinet = null;
 
 		try {
-			amskeycabinet = amsKeyCabinetDao.findByAmsid(addressId);
+			casperId = amsKeyCabinetDao.findByAmsid(addressId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		//casperId = "0005302983";
 		
-		  if(amskeycabinet != null){
+		  /*if(amskeycabinet != null){
 			  System.out.println("amskeycabinate.." + amskeycabinet); 
 			  casperId = amskeycabinet.getId().getCasperid();
-			  }
+			  }*/
 
 		System.out.println("Casper Id:" + casperId);
 		// find max lbnr by addressId and CasperId

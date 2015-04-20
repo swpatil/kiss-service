@@ -37,7 +37,6 @@ public class StreetBridge implements TwoWayStringBridge {
 		try {
 			date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS")
 			.parse(fields[1]);
-			System.out.println(date);
 			streetsId.setStartdate(date);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

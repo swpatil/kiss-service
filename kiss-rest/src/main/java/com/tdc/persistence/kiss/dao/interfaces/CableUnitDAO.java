@@ -9,4 +9,5 @@ public interface CableUnitDAO extends GenericDAO<Cableunit, String>{
 	
 	public Cableunit findByCUNumber(String id) ;
 	public List<String> findCusByNumber(String cuNumber);
+	public List<String> findCusByName(String cuname);
 }

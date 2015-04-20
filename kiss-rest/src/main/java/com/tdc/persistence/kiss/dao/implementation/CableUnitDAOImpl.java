@@ -37,4 +37,15 @@ public class CableUnitDAOImpl extends GenericDaoImpl<Cableunit, String>
 		return list;
 	}
 
+	@Transactional(readOnly = true)
+	public List<String> findCusByName(String cuname) {
+		// TODO Auto-generated method stub
+		Query query = getEntityManager().createQuery("select CU.anlAnlaegsnavn from Cableunit CU where CU.anlAnlaegsnavn LIKE :anlAnlaegsnavn");
+	    query.setParameter("anlAnlaegsnavn", "%"+cuname+"%");
+		query.setMaxResults(10);
+		
+		List<String> list = query.getResultList();
+		return list;
+	}
+
 }

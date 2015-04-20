@@ -13,10 +13,11 @@ import com.tdc.persistence.ams.dao.interfaces.AmsKeyCabinetDao;
 public class AmsKeyCabinetDaoImpl  extends GenericAmsDaoImpl<Amskeycabinet, Long> implements AmsKeyCabinetDao{
 	
 
-	public Amskeycabinet findByAmsid(long id) {
-		Query query = getEntityManager().createQuery("select amskey from Amskeycabinet amskey where amskey.id.amsid=:amsID");
-		query.setParameter("amsID", id);
-		List<Amskeycabinet> results = query.getResultList();
+	public String findByAmsid(Long amsId) {
+		Query query = getEntityManager().createQuery("select amskey.id.casperid from Amskeycabinet amskey where amskey.id.amsid=:amsID");
+		query.setParameter("amsID", amsId);
+		List<String> results = query.getResultList();
+		System.out.println("Casper Result:" +results);
 		if (results.isEmpty()) {
 		    return null; // handle no-results case
 		} else {
