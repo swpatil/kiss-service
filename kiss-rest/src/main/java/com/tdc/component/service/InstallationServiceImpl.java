@@ -292,7 +292,7 @@ public class InstallationServiceImpl extends CommonServiceImpl implements
 			PreparedStatement preparedStatementForInst = null;
 			try {
 				String instId = oracleSequenceDao.getNextKey(instSeq);
-				String insertIkcQuery = "insert into Installation (ID,ADDRESSID,INSTALLATIONSEQ,CABLEUNITID,INSTALLATIONSTATUSID) values (?,?,?,?,?)";
+				String insertIkcQuery = "insert into Installation (ID,ADDRESSID,INSTALLATIONSEQ,CABLEUNITID,INSTALLATIONSTATUSID,STARTDATE) values (?,?,?,?,?,?)";
 				preparedStatementForInst = conn
 						.prepareStatement(insertIkcQuery);
 				preparedStatementForInst.setString(1, instId);
@@ -300,6 +300,7 @@ public class InstallationServiceImpl extends CommonServiceImpl implements
 				preparedStatementForInst.setLong(3, instSeq);
 				preparedStatementForInst.setString(4, cuNumber);
 				preparedStatementForInst.setString(5, gtv.getId());
+				preparedStatementForInst.setDate(6, sqlStartDate);
 				preparedStatementForInst.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
