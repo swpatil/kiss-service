@@ -2,6 +2,8 @@ package com.tdc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,8 +31,11 @@ public class InstallationController {
 	}
 	
 	@RequestMapping(value="/{customerNumber}",method = RequestMethod.GET,  produces="application/json")
-	public InstallationResult getInstallationsByCustomer(@PathVariable String customerNumber,@RequestParam("pageNo") int pageNo){
-		return installationService.getInstallationsByCustomerNumber(customerNumber,pageNo);
+	public InstallationResult getInstallationsByCustomer(@PathVariable String customerNumber,@RequestParam("pageNo") int pageNo,HttpServletRequest request){
+		
+		InstallationResult Installationresults= installationService.getInstallationsByCustomerNumber(customerNumber,pageNo);
+		request.getSession().setAttribute("exportToExsInstallations", Installationresults);
+		return Installationresults;
 	}
 	
 	@RequestMapping(value="/createInstallations",method = RequestMethod.POST,produces="application/json")

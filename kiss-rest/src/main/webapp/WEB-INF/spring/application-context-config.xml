@@ -50,8 +50,8 @@
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 <!--	<bean class="com.tdc.util.IndexProcessor" />
-  	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper"/> -->
-	            
+  	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper"/> -->   
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />	 	    
 	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
 	  <property name="mappingFiles">
 	    <list>
