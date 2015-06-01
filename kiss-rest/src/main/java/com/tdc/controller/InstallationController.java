@@ -17,6 +17,7 @@ import com.tdc.component.bean.ErrorDetailSO;
 import com.tdc.component.bean.InstallationResult;
 import com.tdc.component.bean.InstallationSO;
 import com.tdc.component.service.InstallationService;
+import com.tdc.exception.UnknownResourceException;
 
 @RestController
 @RequestMapping("/installations")
@@ -26,8 +27,9 @@ public class InstallationController {
 	private InstallationService installationService;
 	
 	@RequestMapping(value="/simple/{customerNumber}",method = RequestMethod.GET,  produces="application/json")
-	public List<InstallationSO> getInstallationsByCu(@PathVariable String customerNumber){
-		return installationService.getInstallationsByCuNumber(customerNumber);
+	public List<InstallationSO> getInstallationsByCu(@PathVariable String customerNumber) throws UnknownResourceException {
+		throw new UnknownResourceException("There is no resource for path "+ customerNumber);
+		//return installationService.getInstallationsByCuNumber(customerNumber);
 	}
 	
 	@RequestMapping(value="/{customerNumber}",method = RequestMethod.GET,  produces="application/json")
